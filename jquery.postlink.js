@@ -19,12 +19,10 @@
                 if ( ! isValidPostLink(href) ) {
                     alert("postlink plugin: Link does not contain a valid href (must contain a ?)");
                 }
-                console.info("Clicked " + href);
                 var hrefObj = parseLink(href);
                 var $linkForm = createPostForm(hrefObj);
                 $('body').append($linkForm);
                 $linkForm.submit();
-                console.info("Click Complete");
             });
         });
         function isValidPostLink(linkHref) {
