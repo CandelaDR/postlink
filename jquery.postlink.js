@@ -8,7 +8,7 @@
         var options = $.extend(defaults, options);
 
         return this.each(function() {
-            $obj = $(this);
+            var $obj = $(this);
             if ( $obj[0].tagName != "A") {
                 alert("Cannot use postlink plugin on non 'A' elements");
             }
