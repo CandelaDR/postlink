@@ -10,14 +10,14 @@
         return this.each(function() {
             var $obj = $(this);
             if ( $obj[0].tagName != "A") {
-                alert("Cannot use postlink plugin on non 'A' elements");
+                return;
             }
             $obj.click(function(clickEvent) {
                 clickEvent.preventDefault();
                 var $link=$(this);
                 var href=$link.attr("href");
                 if ( ! isValidPostLink(href) ) {
-                    alert("postlink plugin: Link does not contain a valid href (must contain a ?)");
+                    return;
                 }
                 var hrefObj = parseLink(href);
                 var $linkForm = createPostForm(hrefObj);
