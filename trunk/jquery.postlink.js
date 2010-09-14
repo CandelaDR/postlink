@@ -16,23 +16,12 @@
                 clickEvent.preventDefault();
                 var $link=$(this);
                 var href=$link.attr("href");
-                if ( ! isValidPostLink(href) ) {
-                    return;
-                }
                 var hrefObj = parseLink(href);
                 var $linkForm = createPostForm(hrefObj);
                 $('body').append($linkForm);
                 $linkForm.submit();
             });
         });
-        function isValidPostLink(linkHref) {
-            var hrefRegex = /\?/; //Link should contain a ?
-            var returnBool = false;
-            if ( linkHref.match( hrefRegex) ) {
-                    returnBool = true;
-            }
-            return returnBool;
-        }
         function createPostForm(hrefObj) {
             var linkForm = document.createElement("form");
             $linkForm = $(linkForm);
@@ -60,15 +49,19 @@
                 url: null,
                 keyPairs: {}
             };
-            var urlParts = linkHref.split('?');
-            if (urlParts[0] !== "" || urlParts[0] > 0) {
-                hrefObj.url = urlParts[0];
-            }
-            var queryString = urlParts[1];
-            var hrefKeyPairs = queryString.split('&');
-            while (hrefKeyPairs.length > 0) {
-                var keyPair = hrefKeyPairs.shift().split('=');
-                hrefObj.keyPairs[keyPair[0]] = keyPair[1];
+			if ( linkHref.match(/\?/) ) {
+				var urlParts = linkHref.split('?');
+				if (urlParts[0] !== "" || urlParts[0] > 0) {
+					hrefObj.url = urlParts[0];
+				}
+				var queryString = urlParts[1];
+				var hrefKeyPairs = queryString.split('&');
+				while (hrefKeyPairs.length > 0) {
+					var keyPair = hrefKeyPairs.shift().split('=');
+					hrefObj.keyPairs[keyPair[0]] = keyPair[1];
+				}
+			} else {
+				hrefObj.url = linkHref;
             }
             return hrefObj;
         }
