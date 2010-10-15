@@ -49,19 +49,19 @@
                 url: null,
                 keyPairs: {}
             };
-			if ( linkHref.match(/\?/) ) {
-				var urlParts = linkHref.split('?');
-				if (urlParts[0] !== "" || urlParts[0] > 0) {
-					hrefObj.url = urlParts[0];
-				}
-				var queryString = urlParts[1];
-				var hrefKeyPairs = queryString.split('&');
-				while (hrefKeyPairs.length > 0) {
-					var keyPair = hrefKeyPairs.shift().split('=');
-					hrefObj.keyPairs[keyPair[0]] = keyPair[1];
-				}
-			} else {
-				hrefObj.url = linkHref;
+            if ( linkHref.match(/\?/) ) {
+                var urlParts = linkHref.split('?');
+                if (urlParts[0] !== "" || urlParts[0] > 0) {
+                    hrefObj.url = urlParts[0];
+                }
+                var queryString = urlParts[1];
+                var hrefKeyPairs = queryString.split('&');
+                while (hrefKeyPairs.length > 0) {
+                    var keyPair = hrefKeyPairs.shift().split('=');
+                    hrefObj.keyPairs[decodeURIComponent(keyPair[0])] = decodeURIComponent(keyPair[1]);
+                }
+            } else {
+                hrefObj.url = linkHref;
             }
             return hrefObj;
         }
